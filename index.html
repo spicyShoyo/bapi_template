@@ -21,8 +21,6 @@ body {font-size:16px;}
 
 <script>
   (function() {
-    /* always fire view content */
-    fbq('track', 'ViewContent');
     const eventsToFire = [
       () => fbq('track', 'Schedule'),
       () => fbq('track', 'Purchase', {value: Math.round(Math.random() * 1000) / 10, currency: 'USD'}),
@@ -42,7 +40,12 @@ body {font-size:16px;}
         scheduleOne();
       }, 2000 + Math.random() * 2 * 1000)
     }
-    scheduleOne();
+    if (Math.random() > 0.80) {
+      fbq('track', 'ViewContent');
+      scheduleOne();
+    } else {
+      fbq('track', 'Purchase', {value: Math.round(Math.random() * 1000) / 10, currency: 'USD'});
+    }
   })()
 </script>
 </head>
